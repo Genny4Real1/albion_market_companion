@@ -1,0 +1,9 @@
+
+--- Report Vendite ---
+Premium? = sì
+
+t4 soul: 5,000 unità a 56 argento ciascuna -> Guadagno totale: 280,000 argento, Tasse totali: 20,000 argento.
+
+t5 soul: 3,000 unità a 75 argento ciascuna -> Guadagno totale: 225,000 argento, Tasse totali: 15,000 argento.
+
+Il miglior profitto è dato dalla vendita dell'oggetto t4 soul con un guadagno di 280,000 argento.

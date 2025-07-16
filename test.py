@@ -1,3 +1,6 @@
+import json
+import os
+
 #id = 1
 #nome = "Adept's Rune"
 #prezzo_netto = 65
@@ -19,5 +22,10 @@
 #print(f"Il cane {lista["nome_cane"]} di razza {lista["cane"]}, ha {lista['età']} e pesa {lista['peso']} kg", file=f)
 #f.close()
 
-i = 1
-print(f"filename {i:03}")
+#i = 1
+#print(f"filename {i:03}")
+
+with open ("bag_data.json", "r") as f:
+    data = json.load(f)
+
+print(type(data))

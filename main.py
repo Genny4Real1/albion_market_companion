@@ -1,5 +1,8 @@
 # versione 0.1
 import os.path
+import os
+import json
+import requests
 
 print("Benvenuto in Albion Market Companion!")
 print("made by Genny4Real")
@@ -73,6 +76,46 @@ def cercaMiglioreOggetto(oggetti):
 listaFinale = cercaMiglioreOggetto(oggetti)
 with open(filename, "a") as f: 
     print(f"\nIl miglior profitto è dato dalla vendita dell'oggetto {listaFinale["nome"]} con un guadagno di {listaFinale['guadagno']:,} argento.", file=f)
+
+market_comparison = input("Vuoi comparare il tuo ordine di vendita con il mercato? (sì/no)")
+if market_comparison == "sì" or market_comparison == "si":
+        api_url = "https://west.albion-online-data.com/api/v2/stats/prices/"
+
+        items = ['T4_SOUL','T5_SOUL']
+        item_name = ','.join(items)     
+
+        locations = ['Bridgewatch']
+        location_name = ','.join(locations)     
+
+        #qualities = ['1','2']
+        #quality = ','.join(qualities)          
+
+        price_request = requests.get(api_url + item_name + ".json?locations=" + location_name + r"&qualities=0")       
+
+        # pretty_json = json.dumps(price_request.json(), indent=2)
+        # print (pretty_json)       
+
+        item_price_info_a = []
+        item_price_info_a.append({
+            "item_id" : price_request.json()[0]["item_id"],
+            "quality" : price_request.json()[0]["quality"],
+            "sell_price_min" : price_request.json()[0]["sell_price_min"]
+        })
+
+        item_price_info_b = []
+        item_price_info_b.append({
+            "item_id" : price_request.json()[1]["item_id"],
+            "quality" : price_request.json()[1]["quality"],
+            "sell_price_min" : price_request.json()[1]["sell_price_min"]
+        })
+
+        print("Queste sono le informazioni prese dall'API di Albion per l'item da te richiesto")
+
+        print(f"\n{item_price_info_a[0]['item_id']}: {oggetti[0]['quantità']:,} unità a {item_price_info_a[0]['sell_price_min']:,} argento ciascuna -> Guadagno totale: {oggetti[0]['quantità'] * item_price_info_a[0]['sell_price_min']:,} argento, differenza: {oggetti[0]['guadagno'] - (oggetti[0]['quantità'] * item_price_info_a[0]['sell_price_min']):,} argento.")
+        print(f"\n{item_price_info_b[0]['item_id']}: {oggetti[1]['quantità']:,} unità a {item_price_info_b[0]['sell_price_min']:,} argento ciascuna -> Guadagno totale: {oggetti[1]['quantità'] * item_price_info_b[0]['sell_price_min']:,} argento, differenza: {oggetti[1]['guadagno'] - (oggetti[1]['quantità'] * item_price_info_b[0]['sell_price_min']):,} argento.")
+        print("Grazie per aver usato Albion Market Comparison.")
+else:
+    print("Grazie per aver usato Albion Market Comparison.")
 
 
 
